@@ -28,4 +28,22 @@ class DistrictData {
   }
 }
 
-List<DistrictData> _DistrictData = [];
+
+
+class Info {
+  final int tc,ta,td,tr,da;
+
+  Info({
+    this.da,this.ta,this.tc,this.td,this.tr
+  });
+
+  factory Info.fromJson(Map<String, dynamic> json){
+    return Info(
+      ta: json['ta'],
+      tc:  json['tc'],
+      td:  json['td'],
+      tr:  json['tr'],
+      da:  json['da'],
+    );
+  }
+}
