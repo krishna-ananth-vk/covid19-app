@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
 
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
-//    Size size = MediaQuery.of(context).size;
+
 
     return MaterialApp(
         title: 'Covid',
@@ -83,117 +83,7 @@ class MyApp extends StatelessWidget {
 
               child: Column(
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius:BorderRadius.vertical(bottom: Radius.circular(20.0))
-                    ),
-                    padding: EdgeInsets.only(
-                      left: kDefaultPadding,
-                      right: kDefaultPadding,
-                      top: kDefaultPadding
-                    ),
-                    child: Column(
-
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                                "Covid19",
-                              style: Theme.of(context).textTheme.headline5.copyWith(
-                                color: Colors.white,fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: SvgPicture.asset("assets/icons/virus.svg",color: Colors.white,),
-                              onPressed: (){},
-                            )
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            top: kDefaultPadding
-                          ),
-                          width: double.infinity,
-                          child: Text(
-                            "Are you feeling sick   ?",
-                            style: Theme.of(context).textTheme.headline6.copyWith(
-                                color: Colors.white,fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: kDefaultPadding/2
-                          ),
-                          width: double.infinity,
-                          child: Text(
-                            "If you feel sick with any of covid-19 symptoms please call or SMS us immediately for help.",
-                            style: TextStyle(
-                              color: Colors.white
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: kDefaultPadding
-                          ),
-                          child: Row(
-
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              ButtonTheme(
-                                minWidth: 140,
-                                height: 45,
-                                child: FlatButton.icon(
-                                  padding: EdgeInsets.only(
-                                      left: kDefaultPadding,
-                                      right: kDefaultPadding
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    side: BorderSide(color: Colors.red),
-
-                                  ),
-
-                                  color: Colors.red,
-                                  onPressed: (){},
-                                  icon: Icon(Icons.phone),
-                                  label: Text("Call"),
-
-
-                                ),
-                              ),
-                              ButtonTheme(
-                                minWidth: 140,
-                                height: 45,
-                                child: FlatButton.icon(
-                                  padding: EdgeInsets.only(
-                                      left: kDefaultPadding,
-                                      right: kDefaultPadding
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      side: BorderSide(color: Colors.blue)
-                                  ),
-                                  color: Colors.blue,
-                                  onPressed: (){},
-                                  icon: Icon(
-                                      Icons.mail
-                                  ),
-                                  label: Text("SMS"),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    height: 250,
-                    width: double.infinity,
-                  ),
+                  Header(),
                   InfoData(),
 
                   Container(
@@ -202,17 +92,157 @@ class MyApp extends StatelessWidget {
                       left: kDefaultPadding
                     ),
                     width: double.infinity,
-                    child: Text(
-                      "Districtwise - Report",
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.headline6.copyWith(
-                          color: kTextColor,fontWeight: FontWeight.w500)
-                    ),
+                    child: Stack(
+                      children: <Widget>[
+                        Text(
+                            "Districtwise - Report",
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context).textTheme.headline6.copyWith(
+                                color: kTextColor,fontWeight: FontWeight.w500)
+                        ),
+                        Positioned(
+                          child: Container(
+                            height: 7,
+                            color: kPrimaryColor,
+                          ),
+                        )
+                      ],
+                    )
                   ),
                   District(),
                 ],
               ),
             )));
+  }
+}
+
+class Header extends StatelessWidget {
+  const Header({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      decoration: BoxDecoration(
+        color: kPrimaryColor,
+        borderRadius:BorderRadius.vertical(bottom: Radius.circular(20.0))
+      ),
+      padding: EdgeInsets.only(
+        left: kDefaultPadding,
+        right: kDefaultPadding,
+        top: kDefaultPadding
+      ),
+      child: Column(
+
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Text(
+                  "Covid19",
+                style: Theme.of(context).textTheme.headline5.copyWith(
+                  color: Colors.white,fontWeight: FontWeight.bold
+                ),
+              ),
+              Spacer(),
+              IconButton(
+                icon: SvgPicture.asset("assets/icons/virus.svg",color: Colors.white,),
+                onPressed: (){},
+              )
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              top: kDefaultPadding
+            ),
+            width: double.infinity,
+            child: Text(
+              "Are you feeling sick   ?",
+              style: Theme.of(context).textTheme.headline6.copyWith(
+                  color: Colors.white,fontWeight: FontWeight.w500
+              ),
+            )
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                top: kDefaultPadding/2
+            ),
+            width: double.infinity,
+            child: Text(
+              "If you feel sick with any of covid-19 symptoms please call or SMS us immediately for help.",
+              style: TextStyle(
+                color: Colors.white
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                top: kDefaultPadding
+            ),
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: size.width/2-23,
+                  height: 45,
+                  child: FlatButton.icon(
+                    padding: EdgeInsets.only(
+                        left: kDefaultPadding,
+                        right: kDefaultPadding
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      side: BorderSide(color: Colors.red),
+
+                    ),
+
+                    color: Colors.red,
+                    onPressed: (){},
+                    icon: Icon(Icons.phone , color: Colors.white,),
+                    label: Text("Call",
+                        style: TextStyle(
+                        color: Colors.white
+                    ),),
+
+
+                  ),
+                ),
+                ButtonTheme(
+                  minWidth: size.width/2-23,
+                  height: 45,
+                  child: FlatButton.icon(
+                    padding: EdgeInsets.only(
+                        left: kDefaultPadding,
+                        right: kDefaultPadding
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        side: BorderSide(color: Colors.blue)
+                    ),
+                    color: Colors.blue,
+                    onPressed: (){},
+                    icon: Icon(
+                        Icons.mail,
+                        color: Colors.white,
+                    ),
+                    label: Text("SMS",
+                      style: TextStyle(
+                          color: Colors.white
+                      ),),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+      height: size.height*0.4,
+      width: double.infinity,
+    );
   }
 }
 
