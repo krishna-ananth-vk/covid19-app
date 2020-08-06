@@ -86,33 +86,54 @@ class MyApp extends StatelessWidget {
                   Header(),
                   InfoData(),
 
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: kDefaultPadding,
-                      left: kDefaultPadding
-                    ),
-                    width: double.infinity,
-                    child: Stack(
-                      children: <Widget>[
-                        Text(
-                            "Districtwise - Report",
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.headline6.copyWith(
-                                color: kTextColor,fontWeight: FontWeight.w500)
-                        ),
-                        Positioned(
-                          child: Container(
-                            height: 7,
-                            color: kPrimaryColor,
-                          ),
-                        )
-                      ],
-                    )
+                  Row(
+                    children: <Widget>[
+                      TextWithUnderline(text: "District wise - report"),
+                    ],
                   ),
                   District(),
                 ],
               ),
             )));
+  }
+}
+
+class TextWithUnderline extends StatelessWidget {
+  const TextWithUnderline({
+    Key key,
+    this.text
+  }) : super(key: key);
+
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+        top: kDefaultPadding,
+        left: kDefaultPadding
+      ),
+
+      child: Stack(
+        children: <Widget>[
+          Text(
+              text,
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headline6.copyWith(
+                  color: kTextColor,fontWeight: FontWeight.w500)
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+
+              height: 7,
+              color: kPrimaryColor.withOpacity(0.3),
+            ),
+          )
+        ],
+      )
+    );
   }
 }
 
@@ -128,7 +149,7 @@ class Header extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: kPrimaryColor,
-        borderRadius:BorderRadius.vertical(bottom: Radius.circular(20.0))
+        borderRadius:BorderRadius.vertical(bottom: Radius.circular(30.0))
       ),
       padding: EdgeInsets.only(
         left: kDefaultPadding,
@@ -357,16 +378,18 @@ class _InfoState extends State<InfoData> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        ConCard(data.tc),
-                        ActCard(data.ta),
+                        DataCard("Confirmed",data.tc,FaIcon(FontAwesomeIcons.hospital),Colors.blue),
+                        DataCard("Active",data.ta,FaIcon(FontAwesomeIcons.medkit),Colors.yellow),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        RecCard(data.tr),
-                        DeaCard(data.td),
-                        NewCase(data.da)
+                        SmallDataCard("Recovered",data.tr,RecBackgroundColor),
+                        SmallDataCard("Death",data.td,DeathBackgroundColor),
+                        SmallDataCard("Newly Reported",data.da,NewBackgroundColor),
+
+
                       ],
                     )
                   ]),
