@@ -32,8 +32,11 @@ dependencies:
   flutter_svg: ^0.17.4
 
 
-  http: ^0.12.2
-  provider: ^2.0.1+1
+  http: 0.12.2
+  provider: 4.3.2
+  shared_preferences: 0.5.8
+  flutter_bloc: 6.0.1
+  equatable: 1.2.3
 
 dev_dependencies:
   flutter_test:
