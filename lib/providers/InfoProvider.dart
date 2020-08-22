@@ -4,29 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:keralacovid19/models/District.dart';
 
-class InfoProvider extends ChangeNotifier{
+class InfoProvider {
 
-  InfoProvider(){
-    this.fetchinfo();
-  }
-  Info info;
+  InfoProvider({this.info});
 
-  Info get allInfo => Info();
+  Info info ;
 
-
-
-
-
-
-  fetchinfo() async {
+  Future<Info> fetchinfo() async {
     final response = await http.get('https://keralacovid19.herokuapp.com/info');
 
     if (response.statusCode == 200) {
-      info =  Info.fromJson(json.decode(response.body));
-      print(info.da);
-      notifyListeners();
+      return Info.fromJson(json.decode(response.body));
+
     } else {
       throw Exception('Failed to load Data  ');
     }
   }
+
+  Future<String> loadAsset() async {
+    return await Future.delayed(Duration(seconds: 10), () async {
+      return  "FUTURE";
+    });
+  }
+
+
 }
+

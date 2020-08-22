@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 // import 'package:keralacovid19/services/services.dart';+
 import 'package:keralacovid19/models/District.dart';
 
@@ -10,9 +11,11 @@ import 'dart:convert';
 import 'package:keralacovid19/cards/Card.dart';
 import 'package:keralacovid19/constraints.dart';
 import 'package:keralacovid19/pages/Home.dart';
-import 'package:keralacovid19/pages/News.dart';
+import 'package:keralacovid19/pages/NewsPage.dart';
 import 'package:keralacovid19/pages/Stats.dart';
 import 'package:keralacovid19/providers/DistrictProviders.dart';
+import 'package:keralacovid19/providers/InfoProvider.dart';
+import 'package:keralacovid19/providers/NewsProvider.dart';
 
 import 'package:provider/provider.dart';
 //import 'package:flutter_svg/svg.dart';
@@ -20,7 +23,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MyApp());
 }
-
+//
 Future<Info> fetchinfo() async {
   final response = await http.get('https://keralacovid19.herokuapp.com/info');
 
@@ -39,9 +42,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
-    return ChangeNotifierProvider(
-      create: (context) => DistrictProvider(),
-      child: MaterialApp(
+    return MaterialApp(
         title: 'Covid',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -52,9 +53,18 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MainPage(),
-      ),
-    );
+        home: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => NewsProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => DistrictProvider(),
+            ),
+
+          ],
+          child: MainPage(),
+        ));
   }
 }
 
@@ -67,10 +77,9 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     Home(),
+
     Stats(),
-    Center(
-      child: Text("News"),
-    )
+    News()
   ];
 
   void onTabTapped(int index) {
@@ -124,12 +133,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Header(),
+//          InfoCard(),
           InfoData(),
         ],
       ),
@@ -251,6 +262,19 @@ class Header extends StatelessWidget {
       height: size.height * 0.4,
       width: double.infinity,
     );
+  }
+}
+
+class InfoCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+//    var _info = Provider.of<InfoProvider>(context);
+    return Container(child: Consumer<InfoProvider>(
+      builder: (context, info, child) {
+        print(info);
+        return Text("future");
+      },
+    ));
   }
 }
 

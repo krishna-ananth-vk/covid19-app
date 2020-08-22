@@ -47,3 +47,25 @@ class Info {
     );
   }
 }
+
+
+
+Future<List<DistrictData>> fetchData() async {
+  final response =
+  await http.get('https://keralacovid19.herokuapp.com/apiDistrict/');
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    var data = (json.decode(response.body)) as List;
+    return data
+        .map<DistrictData>((json) => DistrictData.fromJson(json))
+        .toList();
+
+//      notifyListeners();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load Data  ');
+  }
+}

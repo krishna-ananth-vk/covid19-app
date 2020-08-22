@@ -19,6 +19,7 @@ const double CardHeight = 80;
 
 const double SCardWidth = 90;
 const double SCardHeight = 90;
+const double NewsCardHeight = 180;
 
 
 const double CardTitleSize = 16;
